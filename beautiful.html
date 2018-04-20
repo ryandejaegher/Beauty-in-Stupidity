@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Beauty In Stupidity</title>
+    <style>
+        body {
+            display: grid;
+            grid-template-columns: 1fr
+            justify-content: center;
+            justify-self: center;
+            align-content: center;
+            align-items: center;
+            align-self: center;
+            justify-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'helvetica neue';
+        }
+        h1 {
+            text-align: left;
+            font-size: 3em;
+            width: 40%;
+            color: black;
+            background-color: white;
+            border: 10px solid black;
+            padding: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1></h1>
+    <script>
+        fetch(
+                'https://api.unsplash.com/photos/random/?client_id=e9da555ebbe8e9a5ae42906b9031cdda16e17e46e0f0f553bd156a47b06c98c1&query=nature'
+            )
+            .then(function (response) {
+                return response.json();
+
+            })
+            .then(function (data) {
+                console.log(data);
+                console.log(data.urls.full);
+                var image = data.urls.full;
+                var writeText = document.querySelector('h1');
+                document.body.style.backgroundImage = `url(${image})`;
+                document.body.style.backgroundSize = 'cover';
+                // writeText.textContent = data.exif.make + data.exif.model;
+            })
+
+        fetch('https://api.tronalddump.io/random/quote', {
+                method: 'GET',
+                mode: 'cors',
+                redirect: 'follow',
+                // headers: new Headers({
+                //     'Content-Type': 'application/hal+json',
+                //     'Access-Control-Allow-Origin': '*',
+                // })
+            })
+            .then(function (response) {
+                console.log(response)
+                return response.json();
+            })
+
+            .then(function(data){
+                console.log(data._embedded.author[0].name);
+                var author = data._embedded.author[0].name;
+                var writeText = document.querySelector('h1');
+                writeText.innerHTML = `${data.value} <br><br> -  ${author}`
+            })
+    </script>
+</body>
+
+</html>
